@@ -1,17 +1,78 @@
-# Basic Math
+# This is a comment
 
-x = 10
-y = 4
-x + y 
+#Execute a single line of code with Ctrl+Enter
+println("Hello World!")
 
-x * y 
-y % x 
+#Basic arithmetic
+a = 5
+b = 4
+a + b 
+a - b
+a * b 
+a % b
 
-println("Fun with flags!!")
+#Vectors and matrices
+v = [a,b]
+u = [1,2]
+v+u
+ #dot product
+v'u
 
-name = "Fun"
+M = [2 4; 5 6]
+U = [1 4; 5 7]
 
+A = [1 2 3; 4 1 6; 7 8 1]
 
+#Matrixmultiplikation
+M*U
 
+#Add packages with the Pkg module
+#You can also add packages in the terminal
+using Pkg
+Pkg.add("LinearAlgebra")
 
-julia> ;git --version
+#You need this in the REPL
+using LinearAlgebra
+
+#trace
+tr_A = tr(A)
+println("Trace of A:", tr(A))
+
+#Determinant
+det_A = det(A)
+println("Determinant of A:", det(A))
+
+#Boolean - returns true or false
+det(A) == tr(A)
+det(A) != tr(A)
+
+det(M)
+det(M) <= det(A)
+det(M) >= det(A)
+
+#Inverse
+inv_A =inv(A)
+print("Inverse of A:", inv(A))
+
+inv(M)
+
+#Eigenvalues
+eigenvalues_A = eigen(A).values
+println("Eigenvalues of A: ", eigen(A).values)
+
+#Simple if/else statement to calculate the the inverse
+if det(A) != 0
+    inv_A = inv(A)
+    println("The inverse of A:", inv(A))
+else 
+    println("The matrix is singular and does not have an inverse.")
+end
+
+B = [3 12; 2 8]
+
+if det(B) != 0
+    inv_B = inv(B)
+    println("The inverse of A:", inv(B))
+else 
+    println("The matrix is singular and does not have an inverse.")
+end
