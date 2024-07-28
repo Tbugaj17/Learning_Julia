@@ -1,0 +1,28 @@
+# Ignore compiled files
+*.o
+*.so
+*.exe
+
+# Ignore Julia compiled files
+*.ji
+
+# Ignore temporary files and logs
+*.tmp
+*.log
+
+# Ignore all contents in logs directory except .gitkeep
+logs/*
+!logs/.gitkeep
+
+# Ignore all contents in data directory
+data/*
+
+# Ignore build artifacts
+build/*
+
+# Ignore Julia environment files
+Project.toml
+Manifest.toml
+
+# Ignore backups created by some editors
+*~
