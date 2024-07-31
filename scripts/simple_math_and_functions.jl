@@ -3,6 +3,14 @@
 # Introducing data types in Julia
 # Integers, Floats, Strings, Booleans
 
+#Basic arithmetic
+a = 5
+b = 4
+a + b 
+a - b
+a * b 
+a % b
+
 x = 10 # Declare variable 
 println(typeof(x)) # typeof outputs datatype
 
