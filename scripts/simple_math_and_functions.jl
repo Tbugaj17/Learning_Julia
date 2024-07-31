@@ -33,4 +33,30 @@ subarr = arr1[1:2] # creates a new array of the first two entries of arr1
 # Broadcasting
 arr3 = arr1 .+1 # Adds one to each element of the array
 
-# .... more to come
+# Addition
+arr4 = arr1 + arr3
+println(arr4)
+
+#dot product
+arr5 = dot(arr4, arr1)
+
+# Simple Math Functions
+
+function add(x, y)
+    return x + y
+end
+
+function multiply(x, y)
+    return x * y
+end
+
+println(add(4, 5))
+println(multiply(4, 5))
+
+s = sum(arr1)
+
+mx = maximum(arr1)
+
+mn = minimum(arr3)
+
+# Understanding these basics is essential for more advanced programming in Julia.
