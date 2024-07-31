@@ -3,6 +3,7 @@
 # The JuliaAcademy offers free courses and tutorials.
 # Check out the Julia Discourse and JuliaLang on GitHub for community support and code.
 
-#Execute a single line of code with Ctrl+Enter
+# Execute a single line of code with Ctrl+Enter
 println("Hello World!")
+
 
