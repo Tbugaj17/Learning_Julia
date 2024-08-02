@@ -2,7 +2,6 @@
 ARFIMA = "9d0fb3db-ba49-4108-bc86-650b3813b6d5"
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
-Forecast = "6efb3b9f-b065-4dd1-b1a5-fac2350e161b"
 MLJ = "add582a8-e3ab-11e8-2d5e-e98b27df1bc7"
 MLJModels = "d491faf4-2d78-11e9-2867-c94bc002c0b7"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
