@@ -2,7 +2,7 @@
 
 julia_version = "1.10.4"
 manifest_format = "2.0"
-project_hash = "f43edfb435915be4d358d9b5d736a56cd0ec5a59"
+project_hash = "037728922b2a1ca8312f808792179dd4463c0e3e"
 
 [[deps.ARFIMA]]
 deps = ["LinearAlgebra", "Random", "StaticArrays", "Test"]

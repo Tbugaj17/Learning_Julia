@@ -1,100 +1,61 @@
-# Introduction to Time Series Analysis. Time series data consists of observations collected at specific time intervals. Analysis include: 
+# Introduction to Time Series Analysis. 
+# Time series data consists of observations collected at specific time intervals. 
+# Analysis include: 
 # Data Exploration: Understanding trends, seasonality, and anomalies.
 # Preprocessing: Cleaning and transforming data.
 # Modeling: Fitting statistical models to make forecasts or detect patterns.
-# Packages can be found in 'Project.toml'. 
-# Packages used in this script: TimeSeries.jl, 
+# All packages can be found in 'Project.toml'. 
 
-# Introducing Time series Analysis. 
-
-# Activate packages from Project.toml and import packages to the script with 'using'
+# Activate packages from Project.toml and import to the script with 'using'
 using Pkg
 Pkg.activate(".")  # Activates the environment based on the Project.toml in the current directory
 
-using Random, Plots, Statistics
+using TimeSeries, Dates, HypothesisTests, StatsBase, Plots
 
-# White Noise example.
-Random.seed!(1234)
-
-# Generate 500 samples of Gaussian White Noise.
-n = 500
-white_noise = randn(n) 
-
-# Calculate the mean and variance. 
-# For Gaussian White Noise we expect mean close to zero and variance 1.  
-mean_val = mean(white_noise)
-var_val = var(white_noise)
-
-# Print mean and variance.
-println("Mean value:", mean_val)
-println("Variance:", var_val)
-
-# Plot the white Noise.
-plot(white_noise, title="Gaussian White Noise", xlabel="Samples", ylabel="Value", legend=false, color=:blue )
-
-# Time Series Example. 
-using TimeSeries, Dates
-
-# Create a timestamp range for the year 2024.
+# Create a timestamp range for the year 2024
 timestamp = Date("2024-01-01"):Day(1):Date("2024-12-31")
 
-# Match the length of values with timestamp.
+# Generate random values to match the length of the timestamp
 val = randn(length(timestamp))
 
-# Create a dataframe 
+# Create a TimeArray
 df = TimeArray(timestamp, val)
 
-# Plot the data.
-plot(df, title="Generated Data for 2024", xlabel = "Date", ylabel = "Values", legend= false, color=:blue)
+# Plot the time series data
+plot(df, title="Generated Data for 2024", xlabel="Date", ylabel="Values", legend=false, color=:blue)
 
-# Test for stationarity. 
-using HypothesisTests
+# Perform Augmented Dickey-Fuller Test to test for stationarity
+test_results = ADFTest(val, :none, 1)
 
-# Perform Augmented Dickey-Fuller Test to test for a unit root.
-test_results = ADFTest(val , :none, 1)
-
-# Plot ACF and PACF
-using Random, StatsBase
-
+lags = 0:99
 # Compute ACF
-acf_values = autocor(val, 40)  # Returns ACF values for lags up to 40
+acf_values = autocor(val, lags ,demean=true)
+println("ACF Values:")
+println(acf_values)
 
 # Compute PACF
-pacf_val = pacf(val, 60)  # Returns PACF values for lags up to 40
+pacf_values = pacf(val, lags) # Specify the number of lags
+println("PACF Values:")
+println(pacf_values)
 
-# Plot ACF
-plot(acf_values, title="ACF", xlabel="Lag", ylabel="ACF", legend=false)
+# Define confidence intervals
+n = length(val)
+conf_interval = 1.96 / sqrt(n)
 
-# Plot PACF
-plot(pacf_values, title="PACF", xlabel="Lag", ylabel="PACF", legend=false)
+# Plot ACF with confidence intervals
+acf_plot = plot(lags, acf_values, seriestype=:bar, title="ACF", xlabel="Lags", ylabel="ACF Value")
+hline!(acf_plot, [conf_interval, -conf_interval], linestyle=:dash, color=:red, label="95% CI")
 
-# Compute ACF
-acf_values = autocor(val, demean=true)
+# Plot PACF with confidence intervals
+pacf_plot = plot(lags, pacf_values, seriestype=:bar, title="PACF", xlabel="Lags", ylabel="PACF Value")
+hline!(pacf_plot, [conf_interval, -conf_interval], linestyle=:dash, color=:red, label="95% CI")
 
-# Compute PACF
-lags = 1:40
-pacf_val = pacf(val, lags)
-
-# Plot ACF and PACF.
-acf_plot = plot(acf_values, seriestype=:bar, title="ACF")
-pacf_plot = plot(pacf_val, seriestype=:bar, title="PACF")
-
-#..............in progress
 # Display the plots
-#plot(acf_plot)
+display(acf_plot)
+display(pacf_plot)
 
-# Plot PACF
-#plot(lags, pacf_val, title="PACF", xlabel="Lag", ylabel="PACF", legend=false)
+# Alternatively, you can save them to files
+savefig(acf_plot, "acf_plot.png")
+savefig(pacf_plot, "pacf_plot.png")
 
-
-
-# Fit an ARIMA model
-#model = fit(ARIMA, df)
-
-# Forecast 30 days ahead
-#forecast = predict(model, 30)
-
-# Plot the original time series and the forecast
-#plot(df, label="Original Data", title="ARIMA Model Forecast", xlabel="Date", ylabel="Value")
-#plot!(forecast, label="Forecast", color=:red)
-
+#........in progress
