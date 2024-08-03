@@ -1,7 +1,6 @@
 # Learning Julia in Progress
 
-This repository contains scripts and modules on my path learning the Julia programming language. 
-It will include examples, exercises, and projects related to Julia.
+This repository contains scripts and modules from my journey learning the Julia programming language. It is still a work in progress and will include examples, exercises, and projects related to Julia.
 
 ## Structure
 
