@@ -79,21 +79,22 @@ pacf_val = pacf(val, lags)
 acf_plot = plot(acf_values, seriestype=:bar, title="ACF")
 pacf_plot = plot(pacf_val, seriestype=:bar, title="PACF")
 
+#..............in progress
 # Display the plots
-plot(acf_plot)
+#plot(acf_plot)
 
 # Plot PACF
-plot(lags, pacf_val, title="PACF", xlabel="Lag", ylabel="PACF", legend=false)
+#plot(lags, pacf_val, title="PACF", xlabel="Lag", ylabel="PACF", legend=false)
 
 
 
 # Fit an ARIMA model
-#model = fit(ARIMA, ts)
+#model = fit(ARIMA, df)
 
 # Forecast 30 days ahead
 #forecast = predict(model, 30)
 
 # Plot the original time series and the forecast
-#plot(ts, label="Original Data", title="ARIMA Model Forecast", xlabel="Date", ylabel="Value")
+#plot(df, label="Original Data", title="ARIMA Model Forecast", xlabel="Date", ylabel="Value")
 #plot!(forecast, label="Forecast", color=:red)
 
