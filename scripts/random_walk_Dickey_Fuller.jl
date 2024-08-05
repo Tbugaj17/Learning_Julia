@@ -4,7 +4,7 @@
 
 # I will use the random walk to deonstrate a non-stationary time series with a unit-root.
 
-using plots, Random, Statistics, HypothesisTests
+using Plots, Random, Statistics, HypothesisTests
 
 # Set the seed.
 Random.seed!(1234)
@@ -26,6 +26,18 @@ println("Mean value: ", mean_val)
 println("Variance: ", var_val)
 
 # Plot the random walk.
-plot(random_walk, title="Random Walk With Unit Root", xlabel="Time", ylabel="Value", legend=false, color=:blue)
+plot(random_walk, title="Random Walk With a Unit Root", xlabel="Time", ylabel="Value", legend=false, color=:blue)
 
-#..............In progress. Dickey-Fuller on its way.
+# Test for a unit root with Augmented Dickey-Fuller.
+test_results = ADFTest(random_walk, :none, 1)
+
+# Extract and print the p-value
+p_value = HypothesisTests.pvalue(test_results)
+println("P-value: $p_value")
+
+
+if p_value > 0.05
+    println("The time series has a unit root.")
+else
+    println("The time series is stationary.")
+end
