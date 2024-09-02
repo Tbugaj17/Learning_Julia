@@ -1,9 +1,6 @@
-# Forcasting with ARIMA
 
 using Pkg
-Pkg.add(["ARIMA", "CSV", "DataFrames", "TimeSeries", "Plots", "StatsBase"])
-
-using TimeSeries, Dates, Plots, ARFIMA, StatsBase
+using Forecast, Plots, CSV, DataFrames
 
 # Generate the timestamp range
 timestamp = Date("2024-01-01"):Day(1):Date("2024-12-31")
@@ -11,25 +8,20 @@ timestamp = Date("2024-01-01"):Day(1):Date("2024-12-31")
 # Generate random values (for example, this could represent daily returns)
 val = cumsum(randn(length(timestamp)))
 
-# Create a TimeArray
-df = TimeArray(timestamp, val)
+# Convert to a time series object
+data = val
 
-# Plot the time series data
-plot(df, title="Generated Data for 2024", xlabel="Date", ylabel="Values", legend=false, color=:blue)
-
-# Difference the data to make it stationary (ARIMA requires stationary data)
-diff_val = diff(val)
-
-# Fit the ARIMA model
-model = fit(ARIMA, diff_val, 1, 1, 1)  # ARIMA(1, 1, 1) as an example
+# Fit the ARIMA model (using Forecast.jl)
+model = fit(ARIMA, data, 1, 1, 1)  # ARIMA(1, 1, 1) as an example
 
 # Number of steps to forecast
 n_forecast = 30  # Forecasting for 30 days
 
 # Forecast the future values
-forecast_values = forecast(model, n_forecast)
+forecast_result = forecast(model, n_forecast)
 
-# Create a new time range for the forecasted values
+# Extract forecasted values and dates
+forecast_values = forecast_result.mean
 forecast_dates = Date("2025-01-01"):Day(1):Date("2025-01-30")
 
 # Combine the original and forecasted data
@@ -40,6 +32,5 @@ full_values = vcat(val, forecast_values)
 plot(full_dates, full_values, label="Forecast with Observed Data", xlabel="Date", ylabel="Values", legend=:top, title="ARIMA Forecast")
 
 # Save to a CSV file
-using CSV, DataFrames
 forecast_df = DataFrame(Date=full_dates, Value=full_values)
 CSV.write("forecast_results.csv", forecast_df)
