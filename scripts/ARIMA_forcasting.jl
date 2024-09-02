@@ -3,7 +3,7 @@
 using Pkg
 Pkg.add(["ARIMA", "CSV", "DataFrames", "TimeSeries", "Plots", "StatsBase"])
 
-using TimeSeries, Dates, Plots, ARIMA, StatsBase
+using TimeSeries, Dates, Plots, ARFIMA, StatsBase
 
 # Generate the timestamp range
 timestamp = Date("2024-01-01"):Day(1):Date("2024-12-31")
